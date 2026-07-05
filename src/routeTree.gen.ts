@@ -13,6 +13,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NewReviewRouteImport } from './routes/new-review'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as GithubRouteImport } from './routes/github'
@@ -20,6 +21,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReviewIdRouteImport } from './routes/review.$id'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -39,6 +41,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewReviewRoute = NewReviewRouteImport.update({
+  id: '/new-review',
+  path: '/new-review',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -76,6 +83,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewIdRoute = ReviewIdRouteImport.update({
+  id: '/review/$id',
+  path: '/review/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -85,10 +97,12 @@ export interface FileRoutesByFullPath {
   '/github': typeof GithubRoute
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
+  '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
+  '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,10 +112,12 @@ export interface FileRoutesByTo {
   '/github': typeof GithubRoute
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
+  '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
+  '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,10 +128,12 @@ export interface FileRoutesById {
   '/github': typeof GithubRoute
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
+  '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
+  '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,10 +145,12 @@ export interface FileRouteTypes {
     | '/github'
     | '/history'
     | '/login'
+    | '/new-review'
     | '/profile'
     | '/projects'
     | '/register'
     | '/settings'
+    | '/review/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,10 +160,12 @@ export interface FileRouteTypes {
     | '/github'
     | '/history'
     | '/login'
+    | '/new-review'
     | '/profile'
     | '/projects'
     | '/register'
     | '/settings'
+    | '/review/$id'
   id:
     | '__root__'
     | '/'
@@ -153,10 +175,12 @@ export interface FileRouteTypes {
     | '/github'
     | '/history'
     | '/login'
+    | '/new-review'
     | '/profile'
     | '/projects'
     | '/register'
     | '/settings'
+    | '/review/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -167,10 +191,12 @@ export interface RootRouteChildren {
   GithubRoute: typeof GithubRoute
   HistoryRoute: typeof HistoryRoute
   LoginRoute: typeof LoginRoute
+  NewReviewRoute: typeof NewReviewRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
   RegisterRoute: typeof RegisterRoute
   SettingsRoute: typeof SettingsRoute
+  ReviewIdRoute: typeof ReviewIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -201,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-review': {
+      id: '/new-review'
+      path: '/new-review'
+      fullPath: '/new-review'
+      preLoaderRoute: typeof NewReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -252,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/review/$id': {
+      id: '/review/$id'
+      path: '/review/$id'
+      fullPath: '/review/$id'
+      preLoaderRoute: typeof ReviewIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -263,10 +303,12 @@ const rootRouteChildren: RootRouteChildren = {
   GithubRoute: GithubRoute,
   HistoryRoute: HistoryRoute,
   LoginRoute: LoginRoute,
+  NewReviewRoute: NewReviewRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
   RegisterRoute: RegisterRoute,
   SettingsRoute: SettingsRoute,
+  ReviewIdRoute: ReviewIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
