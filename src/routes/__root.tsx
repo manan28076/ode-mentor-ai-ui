@@ -83,9 +83,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
       { name: "author", content: "CodeMentor AI" },
       { property: "og:title", content: "CodeMentor AI — AI Code Reviewer" },
-      { property: "og:description", content: "Review, optimize, understand, and improve your code with AI." },
+      { property: "og:description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "CodeMentor AI — AI Code Reviewer" },
+      { name: "twitter:description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/88e53f36-645c-496c-be50-437e8a832c42/id-preview-b6b82e1d--f27a00a4-495a-4fda-a9db-73c78f5fb6f7.lovable.app-1783255118936.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/88e53f36-645c-496c-be50-437e8a832c42/id-preview-b6b82e1d--f27a00a4-495a-4fda-a9db-73c78f5fb6f7.lovable.app-1783255118936.png" },
     ],
     links: [
       {
