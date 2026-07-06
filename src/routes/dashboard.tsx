@@ -1,23 +1,66 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockStats, mockReviews, mockActivity } from "@/lib/mockData";
+import { mockActivity } from "@/lib/mockData";
+import { getDashboardStats } from "@/services/reviewService";
 import { ScoreBadge, StatusBadge } from "@/components/common/ScoreBadge";
 import { FilePlus, Github, FolderOpen, FileCheck2, FolderKanban, Gauge, Code2, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/dashboard")({ component: Dashboard });
 
-const cards = [
-  { label: "Reviews", value: mockStats.reviews, icon: FileCheck2, trend: "+12%" },
-  { label: "Projects", value: mockStats.projects, icon: FolderKanban, trend: "+3" },
-  { label: "Average Score", value: mockStats.averageScore, icon: Gauge, trend: "+4pt" },
-  { label: "Lines Reviewed", value: mockStats.linesReviewed.toLocaleString(), icon: Code2, trend: "+8.2k" },
-];
+
 
 function Dashboard() {
+  const [stats, setStats] = useState<any>(null);
+  const [recentReviews, setRecentReviews] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        const res = await getDashboardStats(token);
+
+        setStats(res.data);
+        setRecentReviews(res.data.recentReviews);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+  const cards = [
+  {
+    label: "Reviews",
+    value: stats?.totalReviews ?? 0,
+    icon: FileCheck2,
+    trend: "Live",
+  },
+  {
+    label: "Languages",
+    value: stats?.languagesReviewed ?? 0,
+    icon: FolderKanban,
+    trend: "Live",
+  },
+  {
+    label: "Average Score",
+    value: stats?.averageScore ?? 0,
+    icon: Gauge,
+    trend: "Live",
+  },
+  {
+    label: "Lines Reviewed",
+    value: stats?.linesReviewed ?? 0,
+    icon: Code2,
+    trend: "Live",
+  },
+];
   return (
     <AppShell>
       <PageHeader
@@ -70,19 +113,42 @@ function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {mockReviews.map((r) => (
-                    <tr key={r.id} className="border-b last:border-0 hover:bg-muted/30">
-                      <td className="px-5 py-3 font-medium">
-                        <Link to="/review/$id" params={{ id: r.id }} className="hover:text-primary">{r.project}</Link>
-                      </td>
-                      <td className="px-5 py-3 text-muted-foreground">{r.language}</td>
-                      <td className="px-5 py-3"><ScoreBadge score={r.score} /></td>
-                      <td className="px-5 py-3 text-muted-foreground">{r.bugs}</td>
-                      <td className="px-5 py-3 text-muted-foreground">{r.createdAt}</td>
-                      <td className="px-5 py-3"><StatusBadge status={r.status} /></td>
-                    </tr>
-                  ))}
-                </tbody>
+  {recentReviews.map((r: any) => (
+    <tr key={r._id} className="border-b last:border-0 hover:bg-muted/30">
+
+      <td className="px-5 py-3 font-medium">
+        <Link
+          to="/review/$id"
+          params={{ id: r._id }}
+          className="hover:text-primary"
+        >
+          Review
+        </Link>
+      </td>
+
+      <td className="px-5 py-3 text-muted-foreground">
+        {r.language}
+      </td>
+
+      <td className="px-5 py-3">
+        <ScoreBadge score={r.aiReview?.overallScore || 0} />
+      </td>
+
+      <td className="px-5 py-3 text-muted-foreground">
+        {r.aiReview?.bugs?.length || 0}
+      </td>
+
+      <td className="px-5 py-3 text-muted-foreground">
+        {new Date(r.createdAt).toLocaleDateString()}
+      </td>
+
+      <td className="px-5 py-3">
+        <StatusBadge status="completed" />
+      </td>
+
+    </tr>
+  ))}
+</tbody>
               </table>
             </div>
           </CardContent>

@@ -4,17 +4,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Gauge, GraduationCap, Sparkles, TestTube2 } from "lucide-react";
 import { CodeBlock } from "./CodeBlock";
 import { ErrorDrawer } from "./ErrorDrawer";
-import { mockReviewResult } from "@/lib/mockData";
-
 const sevClass: Record<string, string> = {
   high: "bg-destructive/14 text-destructive",
   medium: "bg-[oklch(0.75_0.16_65/0.14)] text-[oklch(0.75_0.16_65)]",
   low: "bg-primary/10 text-primary",
 };
+interface ReviewResultProps {
+  review: any;
+}
 
-export function ReviewResult() {
-  const r = mockReviewResult;
-  const [drawer, setDrawer] = useState<(typeof r.bugs)[number] | null>(null);
+export function ReviewResult({ review }: ReviewResultProps) {
+  const r: any  = review;
+  const [drawer, setDrawer] = useState<any>(null);
   return (
     <div>
       <Card className="mb-4">
@@ -45,13 +46,13 @@ export function ReviewResult() {
           <Panel title="Logic Review" icon={GraduationCap}>{r.logic}</Panel>
           <Panel title="Performance Issues" icon={Gauge}>{r.performance}</Panel>
           <Panel title="Best Practices" icon={Sparkles}>
-            <ul className="list-disc space-y-1 pl-5">{r.bestPractices.map((b) => <li key={b}>{b}</li>)}</ul>
+            <ul className="list-disc space-y-1 pl-5">{r.bestPractices.map((b:string) => <li key={b}>{b}</li>)}</ul>
           </Panel>
           <Panel title="Code Explanation" icon={GraduationCap}>{r.codeExplanation}</Panel>
         </TabsContent>
 
         <TabsContent value="bugs" className="space-y-3">
-          {r.bugs.map((b) => (
+          {r.bugs.map((b:any) => (
             <button key={b.id} onClick={() => setDrawer(b)} className="block w-full rounded-xl border bg-card p-4 text-left transition-all hover:border-primary/40">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
@@ -86,7 +87,7 @@ export function ReviewResult() {
 
         <TabsContent value="tests" className="space-y-4">
           <Panel title="Edge Cases" icon={TestTube2}>
-            <ul className="list-disc space-y-1 pl-5">{r.edgeCases.map((e) => <li key={e}>{e}</li>)}</ul>
+            <ul className="list-disc space-y-1 pl-5">{r.edgeCases.map((e:string) => <li key={e}>{e}</li>)}</ul>
           </Panel>
           <div><div className="mb-2 text-sm font-medium">Generated unit tests</div><CodeBlock code={r.unitTests} language="ts" /></div>
         </TabsContent>

@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { mockReviews } from "@/lib/mockData";
+import { getReviewHistory } from "@/services/reviewService";
 import { ScoreBadge, StatusBadge } from "@/components/common/ScoreBadge";
 import { Download, Search, Trash2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -16,11 +16,30 @@ export const Route = createFileRoute("/history")({ component: History });
 function History() {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<"date" | "score">("date");
+  const [reviews, setReviews] = useState<any[]>([]);
   const items = useMemo(() => {
-    let list = mockReviews.filter((r) => r.project.toLowerCase().includes(q.toLowerCase()));
+    let list = reviews.filter((r) =>
+  (r.originalCode || "").toLowerCase().includes(q.toLowerCase())
+);
     list = [...list].sort((a, b) => (sort === "date" ? b.createdAt.localeCompare(a.createdAt) : b.score - a.score));
     return list;
-  }, [q, sort]);
+  }, [q, sort, reviews]);
+
+  useEffect(() => {
+    const fetchReviewHistory = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const response = await getReviewHistory(token);
+        setReviews(response.data.reviews);
+      } catch (error) {
+        console.error("Error fetching review history:", error);
+      }
+    };
+
+    fetchReviewHistory();
+  }, []);
 
   return (
     <AppShell>
@@ -43,19 +62,53 @@ function History() {
         <ol className="divide-y">
           {items.map((r) => (
             <li key={r.id} className="flex flex-wrap items-center gap-4 p-4 hover:bg-muted/30">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <Link to="/review/$id" params={{ id: r.id }} className="truncate font-medium hover:text-primary">{r.project}</Link>
-                  <StatusBadge status={r.status} />
-                </div>
-                <p className="text-xs text-muted-foreground">{r.language} · {r.bugs} bugs · {r.createdAt}</p>
-              </div>
-              <ScoreBadge score={r.score} />
-              <div className="flex gap-1">
-                <Button asChild size="sm" variant="outline"><Link to="/review/$id" params={{ id: r.id }}>Open</Link></Button>
-                <Button size="sm" variant="ghost" onClick={() => toast.success("Exported (mock)")}><Download className="h-3.5 w-3.5" /></Button>
-                <Button size="sm" variant="ghost" onClick={() => toast.success("Deleted (mock)")}><Trash2 className="h-3.5 w-3.5" /></Button>
-              </div>
+              <li key={r._id} className="flex flex-wrap items-center gap-4 p-4 hover:bg-muted/30">
+  <div className="min-w-0 flex-1">
+    <div className="flex items-center gap-2">
+      <span className="truncate font-medium">
+        {r.language} Review
+      </span>
+
+      <StatusBadge status="completed" />
+    </div>
+
+    <p className="text-xs text-muted-foreground">
+      {r.language} · Score: {r.aiReview?.overallScore ?? "N/A"} ·{" "}
+      {new Date(r.createdAt).toLocaleDateString()}
+    </p>
+  </div>
+
+  <ScoreBadge score={r.aiReview?.overallScore ?? 0} />
+
+  <div className="flex gap-1">
+    <Button
+      size="sm"
+      variant="outline"
+      onClick={() => {
+        console.log(r);
+        toast.info("Open Review page coming next.");
+      }}
+    >
+      Open
+    </Button>
+
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => toast.success("Export feature coming soon")}
+    >
+      <Download className="h-3.5 w-3.5" />
+    </Button>
+
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => toast.success("Delete feature coming soon")}
+    >
+      <Trash2 className="h-3.5 w-3.5" />
+    </Button>
+  </div>
+</li>
             </li>
           ))}
         </ol>

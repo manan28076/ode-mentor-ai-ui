@@ -12,23 +12,44 @@ import { ReviewResult } from "@/components/common/ReviewResult";
 import { ExportModal } from "@/components/common/ExportModal";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { reviewCode } from "@/services/reviewService";
 
 export const Route = createFileRoute("/new-review")({ component: NewReview });
 
 function NewReview() {
   const [code, setCode] = useState(sampleCode);
+  const [language, setLanguage] = useState("TypeScript");
   const [reviewed, setReviewed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [exportOpen, setExportOpen] = useState(false);
+  const [reviewData, setReviewData] = useState<any>(null);
 
-  const runReview = () => {
+  const runReview = async () => {
     setLoading(true);
-    // TODO: call AI review backend
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const token = localStorage.getItem("token");
+
+if (!token) {
+  toast.error("Please login first");
+  return;
+}
+
+const response = await reviewCode(
+  {
+    code,
+    language,
+  },
+  token
+);
+      setReviewData(response.data.review.aiReview);
       setReviewed(true);
       toast.success("Review complete");
-    }, 900);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to generate review. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +69,7 @@ function NewReview() {
             </div>
             <div className="space-y-1.5">
               <Label>Language</Label>
-              <Select defaultValue="TypeScript">
+              <Select value={language} onValueChange={setLanguage}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>{languages.map((l) => <SelectItem key={l} value={l}>{l}</SelectItem>)}</SelectContent>
               </Select>
@@ -92,9 +113,9 @@ function NewReview() {
               <p className="mt-1 max-w-sm text-sm text-muted-foreground">Bugs, complexity analysis, best practices, generated tests, and an optimized version.</p>
             </div>
           )}
-          {!loading && reviewed && (
+          {!loading && reviewed && reviewData && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-              <ReviewResult />
+              <ReviewResult review={reviewData} />
             </motion.div>
           )}
         </section>
