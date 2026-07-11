@@ -55,15 +55,6 @@ export const mockReviews: ReviewSummary[] = [
   { id: "r4", project: "web-dashboard", language: "TypeScript", score: 88, bugs: 2, createdAt: "2025-06-19", status: "completed" },
   { id: "r5", project: "data-etl", language: "Rust", score: 71, bugs: 5, createdAt: "2025-06-12", status: "completed" },
 ];
-
-export const mockActivity = [
-  { id: "a1", type: "review", text: "Reviewed payments-service · score 92", time: "2h ago" },
-  { id: "a2", type: "chat", text: "Asked AI about recursion depth in ml-pipeline", time: "5h ago" },
-  { id: "a3", type: "github", text: "Imported repo alexchen/auth-gateway", time: "1d ago" },
-  { id: "a4", type: "review", text: "Optimized loops in data-etl", time: "2d ago" },
-  { id: "a5", type: "project", text: "Created project mobile-api", time: "3d ago" },
-];
-
 export const mockReviewResult = {
   overallScore: 84,
   bugs: [

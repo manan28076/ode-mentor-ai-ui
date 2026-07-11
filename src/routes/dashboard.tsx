@@ -4,7 +4,6 @@ import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockActivity } from "@/lib/mockData";
 import { getDashboardStats } from "@/services/reviewService";
 import { ScoreBadge, StatusBadge } from "@/components/common/ScoreBadge";
 import { FilePlus, Github, FolderOpen, FileCheck2, FolderKanban, Gauge, Code2, ArrowUpRight } from "lucide-react";
@@ -151,21 +150,6 @@ function Dashboard() {
 </tbody>
               </table>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle>Recent Activity</CardTitle></CardHeader>
-          <CardContent>
-            <ol className="relative space-y-4 border-l pl-5">
-              {mockActivity.map((a) => (
-                <li key={a.id} className="relative">
-                  <span className="absolute -left-[26px] top-1.5 h-2 w-2 rounded-full bg-primary" />
-                  <p className="text-sm">{a.text}</p>
-                  <p className="text-xs text-muted-foreground">{a.time}</p>
-                </li>
-              ))}
-            </ol>
           </CardContent>
         </Card>
       </div>
