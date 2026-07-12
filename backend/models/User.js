@@ -20,6 +20,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    githubUsername: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    location: {
+      type: String,
+      trim: true,
+      default: "",
+    },
   },
   {
     timestamps: true,

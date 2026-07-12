@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const explainRoutes = require("./routes/explainRoutes");
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 // Middleware
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/explain", explainRoutes);
+app.use("/api/user", userRoutes);
 // Test Route
 app.get("/", (req, res) => {
     res.send("🚀 AI Code Reviewer Backend is Running...");
