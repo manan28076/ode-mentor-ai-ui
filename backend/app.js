@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const explainRoutes = require("./routes/explainRoutes");
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const app = express();
 
 // Middleware
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/explain", explainRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 // Test Route
 app.get("/", (req, res) => {
     res.send("🚀 AI Code Reviewer Backend is Running...");
