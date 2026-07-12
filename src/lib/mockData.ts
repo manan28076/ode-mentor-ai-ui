@@ -196,54 +196,6 @@ export const mockReviewResult = {
     "The function iterates over an array of `Item` and accumulates values grouped by `key`. It returns a Map for O(1) subsequent lookups.",
 };
 
-export const mockRepos = [
-  {
-    id: 1,
-    name: "alexchen/payments-service",
-    language: "TypeScript",
-    branch: "main",
-    updated: "2d ago",
-    stars: 128,
-    private: false,
-  },
-  {
-    id: 2,
-    name: "alexchen/auth-gateway",
-    language: "Go",
-    branch: "main",
-    updated: "5d ago",
-    stars: 84,
-    private: false,
-  },
-  {
-    id: 3,
-    name: "alexchen/ml-pipeline",
-    language: "Python",
-    branch: "develop",
-    updated: "1w ago",
-    stars: 42,
-    private: true,
-  },
-  {
-    id: 4,
-    name: "alexchen/web-dashboard",
-    language: "TypeScript",
-    branch: "main",
-    updated: "3w ago",
-    stars: 210,
-    private: false,
-  },
-  {
-    id: 5,
-    name: "alexchen/data-etl",
-    language: "Rust",
-    branch: "main",
-    updated: "1mo ago",
-    stars: 19,
-    private: true,
-  },
-];
-
 export const languages = [
   "TypeScript",
   "JavaScript",
