@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Github, Eye, EyeOff, Mail } from "lucide-react";
+import { Github, Eye, EyeOff } from "lucide-react";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,39 +65,29 @@ toast.success(res.data.message || "Login Successful");
 
   return (
     <AuthShell>
-      <div className="mb-6 text-center">
+      <div className="mb-6">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Welcome back
+          Good to see you again
         </h1>
 
-        <p className="mt-1 text-sm text-muted-foreground">
-          Sign in to your CodeMentor AI account
+        <p className="mt-1 font-mono text-sm text-muted-foreground">
+          <span className="text-primary">→</span> pick up your last review
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <Button
-          variant="outline"
-          type="button"
-          onClick={() => toast.info("GitHub OAuth is a UI placeholder")}
-        >
-          <Github className="mr-2 h-4 w-4" />
-          GitHub
-        </Button>
-
-        <Button
-          variant="outline"
-          type="button"
-          onClick={() => toast.info("Google OAuth is a UI placeholder")}
-        >
-          <Mail className="mr-2 h-4 w-4" />
-          Google
-        </Button>
-      </div>
+      <Button
+        variant="outline"
+        type="button"
+        className="w-full justify-start gap-3 border-primary/30 hover:border-primary/60"
+        onClick={() => toast.info("GitHub OAuth is a UI placeholder")}
+      >
+        <Github className="h-4 w-4" />
+        Continue with GitHub
+      </Button>
 
       <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
         <div className="h-px flex-1 bg-border" />
-        or continue with email
+        or with email
         <div className="h-px flex-1 bg-border" />
       </div>
 
@@ -163,14 +153,14 @@ toast.success(res.data.message || "Login Successful");
         </div>
 
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Signing In..." : "Sign in"}
+          {loading ? "Signing in…" : "Sign in →"}
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        Don't have an account?{" "}
+        New here?{" "}
         <Link to="/register" className="text-primary hover:underline">
-          Create one
+          Set up an account
         </Link>
       </p>
     </AuthShell>

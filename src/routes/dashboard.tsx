@@ -76,16 +76,20 @@ function Dashboard() {
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {cards.map((c, i) => (
           <motion.div key={c.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-            <Card className="transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
+            <Card className="group relative overflow-hidden border-border/60 transition-all hover:border-primary/40">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <CardContent className="p-5">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm text-muted-foreground">{c.label}</div>
-                  <div className="grid h-8 w-8 place-items-center rounded-md bg-primary/10 text-primary">
-                    <c.icon className="h-4 w-4" />
+                  <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground">
+                    <c.icon className="h-3.5 w-3.5 text-primary" />
+                    {c.label}
                   </div>
+                  <span className="font-mono text-[10px] text-muted-foreground/60">#{String(i + 1).padStart(2, "0")}</span>
                 </div>
-                <div className="mt-3 text-2xl font-semibold">{c.value}</div>
-                <div className="mt-1 text-xs text-[oklch(0.65_0.17_155)]">{c.trend} vs last month</div>
+                <div className="mt-3 font-mono text-3xl font-semibold tabular-nums">{c.value}</div>
+                <div className="mt-1.5 flex items-center gap-1 font-mono text-xs text-primary">
+                  <span>+</span>{c.trend.toLowerCase()}
+                </div>
               </CardContent>
             </Card>
           </motion.div>
@@ -165,13 +169,11 @@ function Dashboard() {
 
 function QuickAction({ to, icon: Icon, title, desc }: { to: string; icon: any; title: string; desc: string }) {
   return (
-    <Link to={to} className="group rounded-xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
-      <div className="flex items-center gap-3">
-        <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary group-hover:scale-105 transition-transform"><Icon className="h-5 w-5" /></div>
-        <div>
-          <div className="font-semibold">{title}</div>
-          <div className="text-xs text-muted-foreground">{desc}</div>
-        </div>
+    <Link to={to} className="group flex items-start gap-3 rounded-md border border-border/60 bg-card p-5 transition-all hover:border-primary/40">
+      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" />
+      <div>
+        <div className="font-medium">{title}</div>
+        <div className="mt-0.5 text-xs text-muted-foreground">{desc}</div>
       </div>
     </Link>
   );

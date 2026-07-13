@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Github, Eye, EyeOff, Mail, Check, X } from "lucide-react";
+import { Github, Eye, EyeOff, Check, X } from "lucide-react";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,30 +69,28 @@ function Register() {
 
   return (
     <AuthShell>
-      <div className="mb-6 text-center">
+      <div className="mb-6">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Create your account
+          Set up your account
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Start reviewing code smarter today
+        <p className="mt-1 font-mono text-sm text-muted-foreground">
+          <span className="text-primary">→</span> first review's free, no card needed
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <Button variant="outline" type="button">
-          <Github className="mr-2 h-4 w-4" />
-          GitHub
-        </Button>
-
-        <Button variant="outline" type="button">
-          <Mail className="mr-2 h-4 w-4" />
-          Google
-        </Button>
-      </div>
+      <Button
+        variant="outline"
+        type="button"
+        className="w-full justify-start gap-3 border-primary/30 hover:border-primary/60"
+        onClick={() => toast.info("GitHub OAuth is a UI placeholder")}
+      >
+        <Github className="h-4 w-4" />
+        Continue with GitHub
+      </Button>
 
       <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
         <div className="h-px flex-1 bg-border" />
-        or
+        or with email
         <div className="h-px flex-1 bg-border" />
       </div>
 
@@ -175,7 +173,7 @@ function Register() {
           className="w-full"
           disabled={loading || !rules.every((rule) => rule.ok)}
         >
-          {loading ? "Creating Account..." : "Create account"}
+          {loading ? "Creating account…" : "Create account →"}
         </Button>
       </form>
 
