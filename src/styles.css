@@ -69,9 +69,9 @@
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --radius: 0.375rem;
-  --background: oklch(0.99 0.003 260);
+  --background: oklch(0.985 0.006 95);
   --foreground: oklch(0.18 0.03 265);
-  --card: oklch(1 0 0);
+  --card: oklch(0.995 0.003 95);
   --card-foreground: oklch(0.18 0.03 265);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.03 265);
@@ -159,5 +159,17 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  /* Subtle technical/blueprint grid texture. Use on a relatively-positioned
+     container as a background layer behind real content. */
+  .bg-blueprint {
+    background-image: radial-gradient(var(--color-border) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    opacity: 0.7;
   }
 }

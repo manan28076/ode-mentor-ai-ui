@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
-import { PageHeader } from "@/components/common/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDashboardStats } from "@/services/reviewService";
@@ -62,16 +61,36 @@ function Dashboard() {
 ];
   return (
     <AppShell>
-      <PageHeader
-        title="Dashboard"
-        description="Your recent reviews, projects, and activity at a glance."
-        actions={
-          <>
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b px-4 pb-8 pt-6 sm:-mx-6 sm:-mt-6 sm:px-6 lg:-mx-8 lg:-mt-8 lg:px-8">
+        <div className="bg-blueprint pointer-events-none absolute inset-0" />
+        <div className="relative flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="mb-2 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              System status: live
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+              {stats?.totalReviews ? (
+                <>
+                  <span className="text-primary">{stats.totalReviews}</span> reviews run.
+                  <br className="hidden sm:block" /> <span className="text-primary">{stats?.averageScore ?? 0}</span> avg score.
+                </>
+              ) : (
+                "Nothing reviewed yet."
+              )}
+            </h1>
+            <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+              {stats?.totalReviews
+                ? `${stats.linesReviewed ?? 0} lines analyzed across ${stats.languagesReviewed ?? 0} languages so far.`
+                : "Paste your first snippet or import a repo to see it here."}
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
             <Button asChild variant="outline"><Link to="/github"><Github className="mr-2 h-4 w-4" /> Import from GitHub</Link></Button>
             <Button asChild><Link to="/new-review"><FilePlus className="mr-2 h-4 w-4" /> New Review</Link></Button>
-          </>
-        }
-      />
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {cards.map((c, i) => (
