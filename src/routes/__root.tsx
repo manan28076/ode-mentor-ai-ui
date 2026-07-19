@@ -75,17 +75,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CodeMentor AI — AI Code Reviewer" },
-      { name: "description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
-      { name: "author", content: "CodeMentor AI" },
-      { property: "og:title", content: "CodeMentor AI — AI Code Reviewer" },
-      { property: "og:description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
+      { title: "CodeMentor AI — Catch bugs before your reviewer does" },
+      { name: "description", content: "An AI code review tool that flags bugs, explains complexity, and suggests one-click fixes with a live diff view. Built by Manan." },
+      { name: "author", content: "Manan" },
+      { property: "og:title", content: "CodeMentor AI — Catch bugs before your reviewer does" },
+      { property: "og:description", content: "An AI code review tool that flags bugs, explains complexity, and suggests one-click fixes with a live diff view. Built by Manan." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CodeMentor AI — AI Code Reviewer" },
-      { name: "twitter:description", content: "Review, optimize, understand, and improve your code with AI. Bug detection, complexity analysis, test generation, and a personal coding mentor." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/88e53f36-645c-496c-be50-437e8a832c42/id-preview-b6b82e1d--f27a00a4-495a-4fda-a9db-73c78f5fb6f7.lovable.app-1783255118936.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/88e53f36-645c-496c-be50-437e8a832c42/id-preview-b6b82e1d--f27a00a4-495a-4fda-a9db-73c78f5fb6f7.lovable.app-1783255118936.png" },
+      { name: "twitter:title", content: "CodeMentor AI — Catch bugs before your reviewer does" },
+      { name: "twitter:description", content: "An AI code review tool that flags bugs, explains complexity, and suggests one-click fixes with a live diff view. Built by Manan." },
+      /* TODO: replace with a real screenshot of your dashboard/diff-viewer, hosted in /public or your own CDN.
+         Something like /og-image.png works — just drop a 1200x630 PNG in the public/ folder. */
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

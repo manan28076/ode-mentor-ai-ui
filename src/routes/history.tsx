@@ -9,7 +9,6 @@ import { getReviewHistory } from "@/services/reviewService";
 import { ScoreBadge, StatusBadge } from "@/components/common/ScoreBadge";
 import { Download, Search, Trash2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
 
 export const Route = createFileRoute("/history")({ component: History });
 
@@ -61,54 +60,49 @@ function History() {
       <Card>
         <ol className="divide-y">
           {items.map((r) => (
-            <li key={r.id} className="flex flex-wrap items-center gap-4 p-4 hover:bg-muted/30">
-              <li key={r._id} className="flex flex-wrap items-center gap-4 p-4 hover:bg-muted/30">
-  <div className="min-w-0 flex-1">
-    <div className="flex items-center gap-2">
-      <span className="truncate font-medium">
-        {r.language} Review
-      </span>
+            <li key={r._id} className="flex flex-wrap items-center gap-4 p-4 hover:bg-muted/30">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="truncate font-medium">
+                    {r.language} Review
+                  </span>
 
-      <StatusBadge status="completed" />
-    </div>
+                  <StatusBadge status="completed" />
+                </div>
 
-    <p className="text-xs text-muted-foreground">
-      {r.language} · Score: {r.aiReview?.overallScore ?? "N/A"} ·{" "}
-      {new Date(r.createdAt).toLocaleDateString()}
-    </p>
-  </div>
+                <p className="text-xs text-muted-foreground">
+                  {r.language} · Score: {r.aiReview?.overallScore ?? "N/A"} ·{" "}
+                  {new Date(r.createdAt).toLocaleDateString()}
+                </p>
+              </div>
 
-  <ScoreBadge score={r.aiReview?.overallScore ?? 0} />
+              <ScoreBadge score={r.aiReview?.overallScore ?? 0} />
 
-  <div className="flex gap-1">
-    <Button
-      size="sm"
-      variant="outline"
-      onClick={() => {
-        console.log(r);
-        toast.info("Open Review page coming next.");
-      }}
-    >
-      Open
-    </Button>
+              <div className="flex gap-1">
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/review/$id" params={{ id: r._id }}>
+                    Open
+                  </Link>
+                </Button>
 
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => toast.success("Export feature coming soon")}
-    >
-      <Download className="h-3.5 w-3.5" />
-    </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled
+                  title="Export isn't available yet"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                </Button>
 
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => toast.success("Delete feature coming soon")}
-    >
-      <Trash2 className="h-3.5 w-3.5" />
-    </Button>
-  </div>
-</li>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled
+                  title="Delete isn't available yet"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
+              </div>
             </li>
           ))}
         </ol>

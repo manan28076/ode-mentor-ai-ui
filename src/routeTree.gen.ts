@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NewReviewRouteImport } from './routes/new-review'
 import { Route as LoginRouteImport } from './routes/login'
@@ -31,11 +30,6 @@ const SettingsRoute = SettingsRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -99,7 +93,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
   '/review/$id': typeof ReviewIdRoute
@@ -114,7 +107,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
   '/review/$id': typeof ReviewIdRoute
@@ -130,7 +122,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/new-review': typeof NewReviewRoute
   '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
   '/register': typeof RegisterRoute
   '/settings': typeof SettingsRoute
   '/review/$id': typeof ReviewIdRoute
@@ -147,7 +138,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/new-review'
     | '/profile'
-    | '/projects'
     | '/register'
     | '/settings'
     | '/review/$id'
@@ -162,7 +152,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/new-review'
     | '/profile'
-    | '/projects'
     | '/register'
     | '/settings'
     | '/review/$id'
@@ -177,7 +166,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/new-review'
     | '/profile'
-    | '/projects'
     | '/register'
     | '/settings'
     | '/review/$id'
@@ -193,7 +181,6 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   NewReviewRoute: typeof NewReviewRoute
   ProfileRoute: typeof ProfileRoute
-  ProjectsRoute: typeof ProjectsRoute
   RegisterRoute: typeof RegisterRoute
   SettingsRoute: typeof SettingsRoute
   ReviewIdRoute: typeof ReviewIdRoute
@@ -213,13 +200,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -305,7 +285,6 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   NewReviewRoute: NewReviewRoute,
   ProfileRoute: ProfileRoute,
-  ProjectsRoute: ProjectsRoute,
   RegisterRoute: RegisterRoute,
   SettingsRoute: SettingsRoute,
   ReviewIdRoute: ReviewIdRoute,

@@ -104,8 +104,41 @@ const getDashboardStats = async (req, res) => {
 
     }
 };
+const getReviewById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid review id",
+            });
+        }
+
+        const review = await Review.findOne({
+            _id: id,
+            user: req.user._id,
+        });
+
+        if (!review) {
+            return res.status(404).json({
+                message: "Review not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            review,
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
 module.exports = {
     reviewCode,
     getReviewHistory,
     getDashboardStats,
+    getReviewById,
 };

@@ -22,3 +22,10 @@ export const getDashboardStats = (token) => {
     },
   });
 };
+export const getReviewById = (id, token) => {
+  return api.get(`/review/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

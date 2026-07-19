@@ -1,11 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, FilePlus, FolderKanban, History, Github, MessageSquare, User, Settings, Sparkles } from "lucide-react";
+import { LayoutDashboard, FilePlus, History, Github, MessageSquare, User, Settings, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "New Review", url: "/new-review", icon: FilePlus },
-  { title: "Projects", url: "/projects", icon: FolderKanban },
   { title: "History", url: "/history", icon: History },
   { title: "GitHub", url: "/github", icon: Github },
   { title: "AI Chat", url: "/chat", icon: MessageSquare },
