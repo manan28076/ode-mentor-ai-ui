@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Gauge, GraduationCap, Sparkles, TestTube2 } from "lucide-react";
 import { CodeBlock } from "./CodeBlock";
 import { ErrorDrawer } from "./ErrorDrawer";
+import { DiffFix } from "./DiffFix";
 const sevClass: Record<string, string> = {
   high: "bg-destructive/14 text-destructive",
   medium: "bg-[oklch(0.75_0.16_65/0.14)] text-[oklch(0.75_0.16_65)]",
@@ -11,9 +12,10 @@ const sevClass: Record<string, string> = {
 };
 interface ReviewResultProps {
   review: any;
+  originalCode?: string;
 }
 
-export function ReviewResult({ review }: ReviewResultProps) {
+export function ReviewResult({ review, originalCode }: ReviewResultProps) {
   const r: any  = review;
   const [drawer, setDrawer] = useState<any>(null);
   return (
@@ -71,7 +73,11 @@ export function ReviewResult({ review }: ReviewResultProps) {
 
         <TabsContent value="optim" className="space-y-4">
           <Panel title="Optimization Explanation" icon={Sparkles}>{r.optimizationExplanation}</Panel>
-          <div><div className="mb-2 text-sm font-medium">Optimized code</div><CodeBlock code={r.optimizedCode} language="ts" /></div>
+          {originalCode ? (
+            <DiffFix oldCode={originalCode} newCode={r.optimizedCode} />
+          ) : (
+            <div><div className="mb-2 text-sm font-medium">Optimized code</div><CodeBlock code={r.optimizedCode} language="ts" /></div>
+          )}
         </TabsContent>
 
         <TabsContent value="complex" className="grid gap-4 sm:grid-cols-3">

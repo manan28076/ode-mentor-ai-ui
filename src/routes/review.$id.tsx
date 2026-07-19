@@ -94,7 +94,7 @@ function ReviewDetail() {
               <CodeBlock code={review.originalCode} language={review.language.toLowerCase()} />
             </div>
             <div>
-              <ReviewResult review={review.aiReview} />
+              <ReviewResult review={review.aiReview} originalCode={review.originalCode} />
             </div>
           </div>
 

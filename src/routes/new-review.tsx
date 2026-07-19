@@ -172,7 +172,7 @@ function NewReview() {
           )}
           {!loading && reviewed && reviewData && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-              <ReviewResult review={reviewData} />
+              <ReviewResult review={reviewData} originalCode={code} />
             </motion.div>
           )}
         </section>

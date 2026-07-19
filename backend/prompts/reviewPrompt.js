@@ -50,7 +50,9 @@ Rules:
 - bestPractices maximum 3.
 - edgeCases maximum 3.
 - unitTests should be valid code.
-- optimizedCode should be complete code.
+- optimizedCode should be the complete code, changed ONLY where it meaningfully improves correctness, performance, or clarity of a real bug. Do NOT rename variables, reorder loop syntax (e.g. i++ vs ++i), or make other purely cosmetic edits — every changed line must have a real reason.
+- Do NOT add explanatory comments inside optimizedCode. Put all reasoning in optimizationExplanation instead.
+- If the original code has no meaningful optimization to make, return optimizedCode identical to the original code.
 - Keep every explanation concise.
 - Do NOT return markdown.
 - Do NOT use backticks.
