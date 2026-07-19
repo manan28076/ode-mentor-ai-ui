@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const ai = require("../services/geminiService");
 const chatSystemPrompt = require("../prompts/chatPrompt");
 const Conversation = require("../models/Conversation");
+const friendlyGeminiError = require("../utils/friendlyGeminiError");
 
 const MODEL = "gemini-2.5-flash";
 
@@ -82,9 +83,9 @@ const sendMessage = async (req, res) => {
             reply: replyText,
         });
     } catch (error) {
-        res.status(500).json({
-            message: error.message || "Failed to get a response from the AI mentor",
-        });
+        console.error("chat sendMessage error:", error);
+        const { status, message } = friendlyGeminiError(error);
+        res.status(status).json({ message });
     }
 };
 

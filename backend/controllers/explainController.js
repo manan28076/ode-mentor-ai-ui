@@ -1,5 +1,6 @@
 const ai = require("../services/geminiService");
 const explainPrompt = require("../prompts/explainPrompt");
+const friendlyGeminiError = require("../utils/friendlyGeminiError");
 
 const explainCode = async (req, res) => {
     try {
@@ -22,9 +23,9 @@ const explainCode = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
-        });
+        console.error("explainCode error:", error);
+        const { status, message } = friendlyGeminiError(error);
+        res.status(status).json({ message });
     }
 };
 

@@ -2,6 +2,7 @@ const ai = require("../services/geminiService");
 const reviewPrompt = require("../prompts/reviewPrompt");
 const Review = require("../models/Review");
 const mongoose = require("mongoose");
+const friendlyGeminiError = require("../utils/friendlyGeminiError");
 const reviewCode = async (req, res) => {
     try {
         const { code } = req.body;
@@ -32,9 +33,9 @@ const reviewCode = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
-        });
+        console.error("reviewCode error:", error);
+        const { status, message } = friendlyGeminiError(error);
+        res.status(status).json({ message });
     }
 };
 const getReviewHistory = async (req, res) => {
