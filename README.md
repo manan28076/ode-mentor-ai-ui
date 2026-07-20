@@ -1,4 +1,4 @@
-# CodeMentor AI
+# Critique
 
 > AI-powered code review platform — review, optimize, explain, and improve code using Google Gemini.
 
@@ -9,7 +9,7 @@
 
 ## Overview
 
-CodeMentor AI is a full-stack application that gives developers instant, AI-driven feedback on their code — bug detection, complexity analysis, optimization suggestions, and plain-English explanations of errors. Users can sign up, submit code for review, and track their review history and stats over time from a personal dashboard.
+Critique is a full-stack application that gives developers instant, AI-driven feedback on their code — bug detection, complexity analysis, optimization suggestions, and plain-English explanations of errors. Users can sign up, submit code for review, and track their review history and stats over time from a personal dashboard.
 
 Built solo, end-to-end: system design, REST API, database schema, auth, and a fully custom React frontend.
 
