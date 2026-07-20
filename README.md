@@ -7,6 +7,15 @@
 
 ---
 
+![Diff-based Apply Fix](./screenshots/apply-fix.png)
+
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="49%" />
+  <img src="./screenshots/history.png" width="49%" />
+</p>
+
+---
+
 ## Overview
 
 Critique is a full-stack application that gives developers instant, AI-driven feedback on their code — bug detection, complexity analysis, optimization suggestions, and plain-English explanations of errors. Users can sign up, submit code for review, and track their review history and stats over time from a personal dashboard.
@@ -18,6 +27,7 @@ Built solo, end-to-end: system design, REST API, database schema, auth, and a fu
 ## Features
 
 - **AI Code Review** — deep, context-aware feedback on style, bugs, and structure
+- **Diff-Based Fix Suggestions** — one-click "Apply Fix" showing a red/green before/after diff of the AI's suggested correction
 - **Complexity Analysis** — time/space complexity with optimized alternatives
 - **Error Explanation** — plain-English breakdown of why an error occurred
 - **Review History** — every submission is saved and retrievable per user
